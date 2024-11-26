@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创新型AI工程师作品集</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 加载动画 -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- 自定义鼠标 -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">AI.Portfolio</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">
+                    <i class="fas fa-home"></i>首页
+                </a>
+                <a href="#about" class="nav-link">
+                    <i class="fas fa-user"></i>关于
+                </a>
+                <a href="#skills" class="nav-link">
+                    <i class="fas fa-code"></i>技能
+                </a>
+                <a href="#projects" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>项目
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>联系
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主题切换 -->
+    <button class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero-section">
+        <div id="particles-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">AI驱动的创新工程</h1>
+            <p class="hero-subtitle">探索AI与创造力的完美融合</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="hero-btn btn-primary">
+                    <span>查看作品</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#contact" class="hero-btn btn-outline">
+                    <span>联系我</span>
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="section">
+        <div class="section-title">
+            <h2>关于我</h2>
+            <div class="title-bar"></div>
+        </div>
+        <div class="about-cards">
+            <div class="card about-card hover-3d">
+                <div class="card-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3>个人简介</h3>
+                <p>热爱创新和技术的全栈开发者，专注于创造优秀的用户体验。</p>
+            </div>
+            <div class="card about-card hover-3d">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>教育背景</h3>
+                <p>计算机科学与技术 | 优秀毕业生</p>
+            </div>
+            <div class="card about-card hover-3d">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>获得奖项</h3>
+                <p>多个技术创新奖项 | 优秀开发者</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能展示 -->
+    <section id="skills" class="section">
+        <div class="section-title">
+            <h2>专业技能</h2>
+            <div class="title-bar"></div>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>前端开发</h3>
+                <div class="skill-cards">
+                    <div class="card skill-card hover-3d">
+                        <div class="skill-icon">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <h4>HTML5/CSS3</h4>
+                        <div class="skill-level">
+                            <div class="level-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="card skill-card hover-3d">
+                        <div class="skill-icon">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <h4>JavaScript</h4>
+                        <div class="skill-level">
+                            <div class="level-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="card skill-card hover-3d">
+                        <div class="skill-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <h4>React</h4>
+                        <div class="skill-level">
+                            <div class="level-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>后端开发</h3>
+                <div class="skill-cards">
+                    <div class="card skill-card hover-3d">
+                        <div class="skill-icon">
+                            <i class="fab fa-node-js"></i>
+                        </div>
+                        <h4>Node.js</h4>
+                        <div class="skill-level">
+                            <div class="level-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="card skill-card hover-3d">
+                        <div class="skill-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h4>Python</h4>
+                        <div class="skill-level">
+                            <div class="level-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="card skill-card hover-3d">
+                        <div class="skill-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>数据库</h4>
+                        <div class="skill-level">
+                            <div class="level-bar" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section id="projects" class="section">
+        <div class="section-title">
+            <h2>项目作品</h2>
+            <div class="title-bar"></div>
+        </div>
+        <div class="projects-grid">
+            <div class="card project-card hover-3d">
+                <div class="project-image">
+                    <img src="images/project1.jpg" alt="项目1">
+                </div>
+                <div class="project-content">
+                    <h3>智能助手系统</h3>
+                    <p>基于AI的智能对话系统，提供智能问答和任务处理功能。</p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">AI</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-small">查看演示</a>
+                        <a href="#" class="btn btn-small btn-outline">源代码</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card project-card hover-3d">
+                <div class="project-image">
+                    <img src="images/project2.jpg" alt="项目2">
+                </div>
+                <div class="project-content">
+                    <h3>数据可视化平台</h3>
+                    <p>大数据分析和可视化展示平台，支持实时数据监控。</p>
+                    <div class="project-tags">
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">D3.js</span>
+                        <span class="tag">Python</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-small">查看演示</a>
+                        <a href="#" class="btn btn-small btn-outline">源代码</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 博客文章 -->
+    <section id="blog" class="section">
+        <div class="section-title">
+            <h2>技术博客</h2>
+            <div class="title-bar"></div>
+        </div>
+        <div class="blog-grid">
+            <div class="card blog-card hover-3d">
+                <div class="blog-image">
+                    <img src="images/blog1.jpg" alt="博客1">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2024-01-15</span>
+                        <span><i class="far fa-eye"></i> 1.2k</span>
+                    </div>
+                    <h3>现代Web开发趋势</h3>
+                    <p>探讨2024年Web开发的最新趋势和技术革新...</p>
+                    <a href="#" class="btn btn-text">阅读更多</a>
+                </div>
+            </div>
+            
+            <div class="card blog-card hover-3d">
+                <div class="blog-image">
+                    <img src="images/blog2.jpg" alt="博客2">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2024-01-10</span>
+                        <span><i class="far fa-eye"></i> 980</span>
+                    </div>
+                    <h3>AI在前端开发中的应用</h3>
+                    <p>人工智能如何改变前端开发的工作流程...</p>
+                    <a href="#" class="btn btn-text">阅读更多</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系部分 -->
+    <section id="contact" class="contact-section">
+        <div class="contact-info">
+            <h2>联系方式</h2>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <p>email@example.com</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>地址信息</p>
+            </div>
+            <div class="info-item">
+                <i class="fab fa-github"></i>
+                <p>GitHub</p>
+            </div>
+            <div class="info-item">
+                <i class="fab fa-linkedin"></i>
+                <p>LinkedIn</p>
+            </div>
+        </div>
+        <div class="contact-form">
+            <h2>发送消息</h2>
+            <form id="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required placeholder="您的姓名">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder="您的邮箱">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="subject" name="subject" required placeholder="主题">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" rows="5" required placeholder="您的消息"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">
+                    发送消息
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 脚本 -->
+    <script src="js/three-background.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
