@@ -342,33 +342,41 @@
         instances: {},
         
         init() {
-            // 初始化首页Three.js背景
+            // 只在首页初始化3D背景
             const heroSection = document.querySelector('#hero');
             if (heroSection) {
-                const threeBackground = new ThreeBackground();
+                const threeBackground = new ThreeBackground({
+                    color: document.body.dataset.theme === 'dark' ? '#1a1a1a' : '#ffffff'
+                });
                 threeBackground.init('hero');
                 this.instances.hero = threeBackground;
             }
 
-            // 为其他页面初始化光粒子效果
-            const sections = document.querySelectorAll('.section-with-particles:not(#hero)');
+            // 为其他所有section添加光粒子效果
+            const sections = document.querySelectorAll('section:not(#hero)');
             sections.forEach(section => {
-                const lightParticles = new LightParticlesBackground({
-                    particleColor: 'rgba(255, 255, 255, 0.8)',
-                    particleSize: { min: 1, max: 3 },
-                    particleCount: 80,
-                    speed: { min: 0.2, max: 0.8 },
-                    glowEffect: true,
-                    glowSize: 15,
-                    direction: { x: 1, y: 1 }
-                });
-                
-                const id = section.id || `particles-${Math.random().toString(36).substr(2, 9)}`;
-                section.id = id;
-                
-                lightParticles.init(id);
-                lightParticles.start();
-                this.instances[id] = lightParticles;
+                if (!section.classList.contains('no-particles')) {
+                    const lightParticles = new LightParticlesBackground({
+                        particleColor: document.body.dataset.theme === 'dark' 
+                            ? 'rgba(255, 255, 255, 0.8)' 
+                            : 'rgba(99, 102, 241, 0.8)',
+                        particleSize: { min: 1, max: 3 },
+                        particleCount: 50,
+                        speed: { min: 0.1, max: 0.3 },
+                        glowEffect: true,
+                        glowSize: 15,
+                        direction: { x: 1, y: 1 }
+                    });
+                    
+                    // 确保section有ID
+                    const id = section.id || `particles-${Math.random().toString(36).substr(2, 9)}`;
+                    section.id = id;
+                    
+                    // 初始化光粒子效果
+                    lightParticles.init(id);
+                    lightParticles.start();
+                    this.instances[id] = lightParticles;
+                }
             });
 
             // 监听主题变化
@@ -376,24 +384,21 @@
                 const isDark = e.detail.theme === 'dark';
                 this.updateAllBackgrounds(isDark);
             });
-
-            // 初始主题设置
-            const isDark = document.body.dataset.theme === 'dark';
-            this.updateAllBackgrounds(isDark);
         },
 
         updateAllBackgrounds(isDark) {
-            // 更新Three.js背景
+            // 更新3D背景（仅首页）
             if (this.instances.hero) {
                 this.instances.hero.updateTheme(isDark);
             }
 
-            // 更新光粒子效果
+            // 更新所有光粒子效果
             Object.entries(this.instances).forEach(([id, instance]) => {
                 if (id !== 'hero' && instance instanceof LightParticlesBackground) {
-                    const color = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(99, 102, 241, 0.8)';
                     instance.updateOptions({
-                        particleColor: color
+                        particleColor: isDark 
+                            ? 'rgba(255, 255, 255, 0.8)' 
+                            : 'rgba(99, 102, 241, 0.8)'
                     });
                 }
             });

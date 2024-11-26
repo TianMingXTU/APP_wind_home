@@ -1,101 +1,79 @@
 class ThreeBackground {
-    constructor() {
+    constructor(options = {}) {
+        this.options = {
+            color: options.color || 0x6366f1,
+            ...options
+        };
+    }
+    
+    init(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // 创建canvas并添加到容器
+        this.canvas = document.createElement('canvas');
+        this.canvas.style.position = 'absolute';
+        this.canvas.style.top = '0';
+        this.canvas.style.left = '0';
+        this.canvas.style.width = '100%';
+        this.canvas.style.height = '100%';
+        this.canvas.style.zIndex = '0';
+        container.appendChild(this.canvas);
+
+        // 初始化Three.js
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({
-            canvas: document.getElementById('bg-canvas'),
+            canvas: this.canvas,
             antialias: true,
             alpha: true
         });
         
-        this.init();
+        this.setupScene();
         this.createObjects();
         this.setupLights();
         this.addEventListeners();
         this.animate();
     }
     
-    init() {
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+    setupScene() {
+        const container = this.canvas.parentElement;
+        this.renderer.setSize(container.offsetWidth, container.offsetHeight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.camera.position.z = 30;
         
-        // 创建时钟用于动画
         this.clock = new THREE.Clock();
-        
-        // 鼠标位置
         this.mouse = new THREE.Vector2();
         this.targetRotation = new THREE.Vector2();
         
-        // 几何体组
         this.geometryGroup = new THREE.Group();
         this.scene.add(this.geometryGroup);
     }
     
     createObjects() {
-        // 创建多个几何体
         const geometries = [
             new THREE.IcosahedronGeometry(2, 0),
             new THREE.OctahedronGeometry(2, 0),
             new THREE.TetrahedronGeometry(2, 0)
         ];
         
-        const materials = [
-            new THREE.MeshPhongMaterial({
-                color: 0x6366f1,
-                shininess: 100,
-                transparent: true,
-                opacity: 0.8,
-                wireframe: false
-            }),
-            new THREE.MeshPhongMaterial({
-                color: 0x10b981,
-                shininess: 100,
-                transparent: true,
-                opacity: 0.8,
-                wireframe: false
-            }),
-            new THREE.MeshPhongMaterial({
-                color: 0xf59e0b,
-                shininess: 100,
-                transparent: true,
-                opacity: 0.8,
-                wireframe: false
-            })
-        ];
-        
-        // 创建多个几何体实例并随机分布
-        for (let i = 0; i < 15; i++) {
+        const material = new THREE.MeshPhongMaterial({
+            color: this.options.color,
+            shininess: 100,
+            transparent: true,
+            opacity: 0.8,
+            wireframe: false
+        });
+
+        for (let i = 0; i < 5; i++) {
             const geometry = geometries[Math.floor(Math.random() * geometries.length)];
-            const material = materials[Math.floor(Math.random() * materials.length)].clone();
-            
             const mesh = new THREE.Mesh(geometry, material);
             
-            // 随机位置
-            mesh.position.x = (Math.random() - 0.5) * 40;
-            mesh.position.y = (Math.random() - 0.5) * 40;
+            mesh.position.x = (Math.random() - 0.5) * 20;
+            mesh.position.y = (Math.random() - 0.5) * 20;
             mesh.position.z = (Math.random() - 0.5) * 20;
             
-            // 随机旋转
-            mesh.rotation.x = Math.random() * Math.PI;
-            mesh.rotation.y = Math.random() * Math.PI;
-            
-            // 随机缩放
-            const scale = 0.5 + Math.random() * 0.5;
-            mesh.scale.set(scale, scale, scale);
-            
-            // 添加到组中
             this.geometryGroup.add(mesh);
-            
-            // 添加自定义属性用于动画
-            mesh.userData.rotationSpeed = {
-                x: (Math.random() - 0.5) * 0.02,
-                y: (Math.random() - 0.5) * 0.02,
-                z: (Math.random() - 0.5) * 0.02
-            };
-            
-            mesh.userData.floatSpeed = 0.001 + Math.random() * 0.002;
-            mesh.userData.floatOffset = Math.random() * Math.PI * 2;
         }
     }
     
@@ -126,14 +104,16 @@ class ThreeBackground {
     }
     
     onWindowResize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
+        const container = this.canvas.parentElement;
+        this.camera.aspect = container.offsetWidth / container.offsetHeight;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(container.offsetWidth, container.offsetHeight);
     }
     
     onMouseMove(event) {
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        const container = this.canvas.parentElement;
+        this.mouse.x = (event.clientX / container.offsetWidth) * 2 - 1;
+        this.mouse.y = -(event.clientY / container.offsetHeight) * 2 + 1;
         
         this.targetRotation.x = this.mouse.y * 0.5;
         this.targetRotation.y = this.mouse.x * 0.5;
@@ -141,17 +121,13 @@ class ThreeBackground {
     
     onThemeChange(event) {
         const isDark = event.detail.theme === 'dark';
-        
-        // 更新材质颜色和不透明度
+        this.updateTheme(isDark);
+    }
+    
+    updateTheme(isDark) {
+        const color = isDark ? 0x818cf8 : 0x6366f1;
         this.geometryGroup.children.forEach(mesh => {
-            mesh.material.opacity = isDark ? 0.8 : 0.6;
-            
-            // 在暗色主题下增加发光效果
-            if (isDark) {
-                mesh.material.emissive = new THREE.Color(0x222222);
-            } else {
-                mesh.material.emissive = new THREE.Color(0x000000);
-            }
+            mesh.material.color.setHex(color);
         });
     }
     
@@ -167,21 +143,17 @@ class ThreeBackground {
         // 更新每个几何体
         this.geometryGroup.children.forEach(mesh => {
             // 自转
-            mesh.rotation.x += mesh.userData.rotationSpeed.x;
-            mesh.rotation.y += mesh.userData.rotationSpeed.y;
-            mesh.rotation.z += mesh.userData.rotationSpeed.z;
+            mesh.rotation.x += 0.01;
+            mesh.rotation.y += 0.01;
+            mesh.rotation.z += 0.01;
             
             // 浮动动画
-            const floatY = Math.sin(time + mesh.userData.floatOffset) * mesh.userData.floatSpeed;
+            const floatY = Math.sin(time + mesh.position.x) * 0.01;
             mesh.position.y += floatY;
             
             // 脉冲缩放
-            const scale = 1 + Math.sin(time * 2 + mesh.userData.floatOffset) * 0.1;
+            const scale = 1 + Math.sin(time * 2 + mesh.position.x) * 0.1;
             mesh.scale.set(scale, scale, scale);
-            
-            // 颜色过渡
-            const hue = (time * 0.1 + mesh.userData.floatOffset) % 1;
-            mesh.material.color.setHSL(hue, 0.5, 0.5);
         });
         
         this.renderer.render(this.scene, this.camera);
@@ -190,5 +162,6 @@ class ThreeBackground {
 
 // 当页面加载完成后初始化
 window.addEventListener('load', () => {
-    window.threeBackground = new ThreeBackground();
+    const threeBackground = new ThreeBackground();
+    threeBackground.init('bg-container');
 });
